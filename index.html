@@ -69,7 +69,7 @@
       background-color: #104eb5;
     }
 
-    /* 🌟 로그인 성공 시 우측 상단에 그려질 학생 프로필 디테일 디스플레이 */
+    /* 🌟 로그인 성공 시 우측 상단에 그려질 학생 프로필 디테일 */
     .user-profile {
       display: flex;
       align-items: center;
@@ -254,7 +254,6 @@
   </header>
 
   <main class="hero-container">
-    
     <div class="hero-left">
       <h1>수능 영어, 직순독해로<br>빠르고 정확하게!</h1>
       <p>영어 문장을 우리말 어순으로 억지로 바꾸지 마세요.<br>단어가 쓰인 순서 그대로 읽어 내려가는 훈련을 통해,<br>어떤 난이도의 지문도 흔들림 없이 파악할 수 있습니다.</p>
@@ -278,14 +277,11 @@
         <span class="arrow-icon"></span>
       </a>
     </div>
-
   </main>
 
   <section class="category-section">
     <div>
-      <div class="category-title">
-        <span class="icon-box"></span> 고1 모의고사 분석
-      </div>
+      <div class="category-title"><span class="icon-box"></span> 고1 모의고사 분석</div>
       <ul class="category-list">
         <li><a href="#">3월 전국연합학력평가</a></li>
         <li><a href="#">6월 전국연합학력평가</a></li>
@@ -295,9 +291,7 @@
     </div>
 
     <div>
-      <div class="category-title">
-        <span class="icon-box red"></span> 고2 모의고사 분석
-      </div>
+      <div class="category-title"><span class="icon-box red"></span> 고2 모의고사 분석</div>
       <ul class="category-list">
         <li><a href="#">3월 전국연합학력평가</a></li>
         <li><a href="#">6월 전국연합학력평가</a></li>
@@ -307,9 +301,7 @@
     </div>
 
     <div>
-      <div class="category-title">
-        <span class="icon-box gray"></span> 고3 / 수능 기출
-      </div>
+      <div class="category-title"><span class="icon-box gray"></span> 고3 / 수능 기출</div>
       <ul class="category-list">
         <li><a href="#">6월 대학수학능력시험 모의평가</a></li>
         <li><a href="#">9월 대학수학능력시험 모의평가</a></li>
@@ -319,49 +311,49 @@
   </section>
 
   <script>
-    // 1. 아까 'My First Project' 웹 연결 창에서 얻으신 '진짜 증표(Config)'를 여기에 대입하세요!
+    // 🔍 바로 여기입니다! 아까 톱니바퀴 메뉴에서 찾아오신 진짜 증표 값들을 이 중괄호 안에 채워 넣으세요!
     const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_SENDER_ID",
-      appId: "YOUR_APP_ID"
+      apiKey: "AIzaSyDD5oaH8i7Uajue1R44xgcbTzRaUsWfETw",
+  authDomain: "project-c1d949fb-96d8-423d-8ac.firebaseapp.com",
+  projectId: "project-c1d949fb-96d8-423d-8ac",
+  storageBucket: "project-c1d949fb-96d8-423d-8ac.firebasestorage.app",
+  messagingSenderId: "783814321616",
+  appId: "1:783814321616:web:f1a20c40b3584c609bc5d5"
     };
 
-    // 파이어베이스 시스템 엔진 시동
+    // 파이어베이스 엔진 기동
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     const auth = firebase.auth();
 
-    // 2. [구글 단일 기동] 클릭하면 다른 절차 없이 즉시 구글 팝업을 띄우는 함수
+    // 구글 팝업창을 즉시 띄우는 함수
     function loginWithGoogle(e) {
       if(e) e.preventDefault();
       const provider = new firebase.auth.GoogleAuthProvider();
       
       auth.signInWithPopup(provider)
         .then((result) => {
-          console.log("구글 신원 검증 성공:", result.user);
+          console.log("구글 로그인 검증 완료:", result.user);
         })
         .catch((error) => {
-          console.error("인증 실패 사유:", error.message);
-          alert("로그인 처리 중 실패가 발생했습니다. 증표 설정 및 도메인 설정을 재확인해 주세요.");
+          console.error("오류 내용:", error.message);
+          alert("로그인에 실패했습니다. 증표 설정 및 승인된 도메인 설정을 다시 확인해 주세요.");
         });
     }
 
-    // 3. 로그아웃 함수
+    // 로그아웃 시스템
     function logout() {
       auth.signOut().then(() => {
         location.reload();
       });
     }
 
-    // 4. [보안 카메라] 새로고침을 하거나 재접속 시 로그인 상태를 영구 감시하고 동적으로 UI를 바꿔주는 컨트롤러
+    // 회원 상태 실시간 감시 모니터
     auth.onAuthStateChanged((user) => {
       const authArea = document.getElementById('auth-area');
       if (user) {
-        // 손님이 로그인한 상태 -> 상단 메뉴에 프로필 출력
+        // 로그인 상태 시: 상단 메뉴를 학생 프로필 이미지와 이름으로 동적 교체
         authArea.innerHTML = `
           <div class="user-profile">
             <img src="${user.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="profile">
@@ -370,7 +362,7 @@
           </div>
         `;
       } else {
-        // 비회원 혹은 로그아웃 상태 -> 원래의 깔끔한 [Sign up] 버튼 대기
+        // 비로그인 상태 시: 원본 Sign up 버튼 노출
         authArea.innerHTML = `
           <a class="login-btn" onclick="loginWithGoogle(event)">Sign up</a>
         `;
