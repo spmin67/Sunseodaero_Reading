@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>수능 직순독해 훈련소</title>
+  <style>
+    /* 1. 기본 배경 및 폰트 설정 */
+    body {
+      font-family: 'Malgun Gothic', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7f6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* 2. 상단 헤더 (대문 타이틀) */
+    .header {
+      background-color: #212529;
+      width: 100%;
+      padding: 40px 0;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+    }
+    .header p {
+      margin: 10px 0 0 0;
+      color: #adb5bd;
+      font-size: 1.1rem;
+    }
+
+    /* 3. 메인 콘텐츠 영역 */
+    .container {
+      max-width: 900px;
+      width: 90%;
+      margin: 50px auto;
+      text-align: center;
+    }
+
+    /* 4. 입장 버튼들을 담는 카드 컨테이너 */
+    .card-grid {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* 5. 개별 입장 버튼(카드) 디자인 */
+    .entry-card {
+      background: white;
+      border-radius: 16px;
+      padding: 40px 30px;
+      width: 320px;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    /* 마우스를 올렸을 때 애니메이션 효과 */
+    .entry-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+    .card-prep:hover { border-color: #20c997; } /* 예습방은 호버 시 민트색 테두리 */
+    .card-hw:hover { border-color: #339af0; }   /* 숙제방은 호버 시 파란색 테두리 */
+
+    /* 카드 내부 아이콘 및 텍스트 */
+    .card-icon {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .card-desc {
+      font-size: 0.95rem;
+      color: #6c757d;
+      line-height: 1.5;
+    }
+    
+    /* 6. 하단 카피라이트 */
+    .footer {
+      margin-top: auto;
+      padding: 20px;
+      color: #868e96;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="header">
+    <h1>수능 직순독해 훈련소</h1>
+    <p>정확한 단어 배열과 발음 규칙으로 영어 1등급을 완성합니다.</p>
+  </header>
+
+  <!-- 메인 선택 영역 -->
+  <main class="container">
+    <h2 style="color: #343a40;">오늘 진행할 학습을 선택하세요</h2>
+    
+    <div class="card-grid">
+      <!-- 📘 예습방 입장 카드 -->
+      <!-- href 안의 "#" 자리에 방금 완성하신 '예습장 웹앱 주소'를 넣으시면 됩니다. -->
+      <a href="https://script.google.com/macros/s/AKfycbzFUC2kStidFX0N0Bctef8P5_Fstx1qykQjFPclSGOjmqKbKAjP7zTluIPlSwXtW45jcA/exec" class="entry-card card-prep" target="_blank">
+        <div class="card-icon">📘</div>
+        <div class="card-title">독해 예습방 입장</div>
+        <div class="card-desc">
+          수업 전, 모르는 단어를 파악하고<br>
+          스스로 문장의 발음을 점검하는<br>
+          워밍업 공간입니다.
+        </div>
+      </a>
+
+      <a href="https://script.google.com/macros/s/AKfycbzAiQ-4MA9K9tN8DUyw778iZpWHeo_nyhdoLH49kqPL6sahbLrlzNg8YrHFVIiINFkzzg/exec" class="entry-card card-hw" target="_blank">
+        <div class="card-icon">📕</div>
+        <div class="card-title">독해 숙제방 입장</div>
+        <div class="card-desc">
+          수업 후, 배운 내용을 토대로<br>
+          직순독해 원칙에 맞게 정답을<br>
+          스스로 채점하고 확인합니다.
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <!-- 하단 정보 -->
+  <footer class="footer">
+    &copy; 2026 직순독해 훈련소. All rights reserved.
+  </footer>
+
+</body>
+</html>
