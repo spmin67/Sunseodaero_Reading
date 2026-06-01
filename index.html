@@ -4,146 +4,283 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>수능 직순독해 훈련소</title>
+  
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  
   <style>
-    /* 1. 기본 배경 및 폰트 설정 */
-    body {
-      font-family: 'Malgun Gothic', sans-serif;
+    /* 전체 초기화 및 폰트 설정 */
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background-color: #f4f7f6;
+    }
+    
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      background-color: #ffffff;
+      color: #21242c;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 1. 상단 네비게이션 바 (칸아카데미 디테일 적용) */
+    header {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      min-height: 100vh;
+      padding: 16px 32px;
+      border-bottom: 1px solid #dedede;
     }
-
-    /* 2. 상단 헤더 (대문 타이틀) */
-    .header {
-      background-color: #212529;
-      width: 100%;
-      padding: 40px 0;
-      text-align: center;
-      color: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-      letter-spacing: 1px;
-    }
-    .header p {
-      margin: 10px 0 0 0;
-      color: #adb5bd;
-      font-size: 1.1rem;
-    }
-
-    /* 3. 메인 콘텐츠 영역 */
-    .container {
-      max-width: 900px;
-      width: 90%;
-      margin: 50px auto;
-      text-align: center;
-    }
-
-    /* 4. 입장 버튼들을 담는 카드 컨테이너 */
-    .card-grid {
+    
+    .logo-area {
+      font-size: 20px;
+      font-weight: 800;
+      color: #14bf96; /* 칸아카데미 그린 */
       display: flex;
-      gap: 30px;
-      justify-content: center;
-      margin-top: 40px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
     }
 
-    /* 5. 개별 입장 버튼(카드) 디자인 */
-    .entry-card {
-      background: white;
-      border-radius: 16px;
-      padding: 40px 30px;
-      width: 320px;
+    .top-menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .top-menu a {
       text-decoration: none;
-      color: #333;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      color: #1865f2; /* 칸아카데미 블루 */
+      font-weight: 700;
+      font-size: 15px;
     }
-    
-    /* 마우스를 올렸을 때 애니메이션 효과 */
-    .entry-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-    }
-    .card-prep:hover { border-color: #20c997; } /* 예습방은 호버 시 민트색 테두리 */
-    .card-hw:hover { border-color: #339af0; }   /* 숙제방은 호버 시 파란색 테두리 */
 
-    /* 카드 내부 아이콘 및 텍스트 */
-    .card-icon {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
+    .top-menu a.login-btn {
+      background-color: #1865f2;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      transition: background-color 0.2s;
     }
-    .card-title {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 15px;
+
+    .top-menu a.login-btn:hover {
+      background-color: #104eb5;
     }
-    .card-desc {
-      font-size: 0.95rem;
-      color: #6c757d;
-      line-height: 1.5;
+
+    /* 2. 메인 히어로 영역 (넓이 1040px 고정으로 안정감 부여) */
+    .hero-container {
+      max-width: 1040px;
+      margin: 80px auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 64px;
+      padding: 0 32px;
+    }
+
+    /* 좌측 텍스트 디테일 */
+    .hero-left {
+      flex: 1.2;
+    }
+
+    .hero-left h1 {
+      font-size: 44px;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      color: #21242c;
+      font-weight: 700;
+    }
+
+    .hero-left p {
+      font-size: 19px;
+      line-height: 1.6;
+      color: #3b3e46;
+      font-weight: 400;
+    }
+
+    /* 우측 액션 카드 디테일 (정확한 칸아카데미 스타일 벤치마킹) */
+    .hero-right {
+      flex: 1;
+      width: 100%;
+    }
+
+    .hero-right h2 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      color: #21242c;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .action-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      border: 1px solid #b3c2d1; /* 디테일한 연회색 테두리 */
+      border-radius: 4px;
+      background-color: #f7f9fa;
+      text-decoration: none;
+      color: #1865f2;
+      font-size: 17px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    /* 마우스 올렸을 때의 그림자 및 배경색 변화 디테일 */
+    .action-card:hover {
+      background-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-color: #1865f2;
+    }
+
+    /* CSS로 그린 깔끔한 화살표 아이콘 */
+    .arrow-icon {
+      width: 8px;
+      height: 14px;
+      border-top: 2px solid #1865f2;
+      border-right: 2px solid #1865f2;
+      transform: rotate(45deg);
+      display: inline-block;
+    }
+
+    /* 3. 하단 카테고리 영역 (가로 3단 Grid 레이아웃으로 완벽 정렬) */
+    .category-section {
+      max-width: 1040px;
+      margin: 80px auto;
+      padding: 64px 32px;
+      border-top: 1px solid #dedede;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .category-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #21242c;
+    }
+
+    /* 디테일한 아이콘 (이미지 대체) */
+    .icon-box {
+      width: 24px;
+      height: 24px;
+      background-color: #ffb100;
+      border-radius: 4px;
+      display: inline-block;
     }
     
-    /* 6. 하단 카피라이트 */
-    .footer {
-      margin-top: auto;
-      padding: 20px;
-      color: #868e96;
-      font-size: 0.85rem;
+    .icon-box.red { background-color: #e24925; }
+    .icon-box.gray { background-color: #3b3e46; }
+
+    .category-list {
+      list-style: none;
+    }
+
+    .category-list li {
+      margin-bottom: 18px;
+    }
+
+    .category-list a {
+      text-decoration: none;
+      color: #3b3e46;
+      font-size: 16px;
+      font-weight: 400;
+      transition: color 0.1s;
+    }
+
+    .category-list a:hover {
+      color: #1865f2;
+      text-decoration: underline;
+    }
+
+    /* 모바일 환경에서도 깨지지 않도록 처리 */
+    @media (max-width: 900px) {
+      .hero-container { flex-direction: column; }
+      .category-section { grid-template-columns: 1fr; gap: 40px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 상단 헤더 -->
-  <header class="header">
-    <h1>수능 직순독해 훈련소</h1>
-    <p>정확한 단어 배열과 발음 규칙으로 영어 1등급을 완성합니다.</p>
+  <header>
+    <div class="logo-area">
+      <span style="font-size: 24px;">📗</span> 수능 직순독해 훈련소
+    </div>
+    <div class="top-menu">
+      <a href="#">Explore ▾</a>
+      <a href="#" class="login-btn">Sign up</a>
+    </div>
   </header>
 
-  <!-- 메인 선택 영역 -->
-  <main class="container">
-    <h2 style="color: #343a40;">오늘 진행할 학습을 선택하세요</h2>
+  <main class="hero-container">
     
-    <div class="card-grid">
-      <!-- 📘 예습방 입장 카드 -->
-      <!-- href 안의 "#" 자리에 방금 완성하신 '예습장 웹앱 주소'를 넣으시면 됩니다. -->
-      <a href="https://script.google.com/macros/s/AKfycbzFUC2kStidFX0N0Bctef8P5_Fstx1qykQjFPclSGOjmqKbKAjP7zTluIPlSwXtW45jcA/exec" class="entry-card card-prep" target="_blank">
-        <div class="card-icon">📘</div>
-        <div class="card-title">독해 예습방 입장</div>
-        <div class="card-desc">
-          수업 전, 모르는 단어를 파악하고<br>
-          스스로 문장의 발음을 점검하는<br>
-          워밍업 공간입니다.
-        </div>
+    <div class="hero-left">
+      <h1>수능 영어, 직순독해로<br>빠르고 정확하게!</h1>
+      <p>영어 문장을 우리말 어순으로 억지로 바꾸지 마세요.<br>단어가 쓰인 순서 그대로 읽어 내려가는 훈련을 통해,<br>어떤 난이도의 지문도 흔들림 없이 파악할 수 있습니다.</p>
+    </div>
+
+    <div class="hero-right">
+      <h2>오늘의 훈련을 시작하세요!</h2>
+      
+      <a href="https://script.google.com/macros/s/AKfycbzFUC2kStidFX0N0Bctef8P5_Fstx1qykQjFPclSGOjmqKbKAjP7zTluIPlSwXtW45jcA/exec" class="action-card" target="_blank">
+        <span>독해 예습방 입장</span>
+        <span class="arrow-icon"></span>
+      </a>
+      
+      <a href="https://script.google.com/macros/s/AKfycbzAiQ-4MA9K9tN8DUyw778iZpWHeo_nyhdoLH49kqPL6sahbLrlzNg8YrHFVIiINFkzzg/exec" class="action-card" target="_blank">
+        <span>독해 숙제방 입장</span>
+        <span class="arrow-icon"></span>
       </a>
 
-      <a href="https://script.google.com/macros/s/AKfycbzAiQ-4MA9K9tN8DUyw778iZpWHeo_nyhdoLH49kqPL6sahbLrlzNg8YrHFVIiINFkzzg/exec" class="entry-card card-hw" target="_blank">
-        <div class="card-icon">📕</div>
-        <div class="card-title">독해 숙제방 입장</div>
-        <div class="card-desc">
-          수업 후, 배운 내용을 토대로<br>
-          직순독해 원칙에 맞게 정답을<br>
-          스스로 채점하고 확인합니다.
-        </div>
+      <a href="#" class="action-card">
+        <span>Word Master 단어장</span>
+        <span class="arrow-icon"></span>
       </a>
     </div>
+
   </main>
 
-  <!-- 하단 정보 -->
-  <footer class="footer">
-    &copy; 2026 직순독해 훈련소. All rights reserved.
-  </footer>
+  <section class="category-section">
+    <div>
+      <div class="category-title">
+        <span class="icon-box"></span> 고1 모의고사 분석
+      </div>
+      <ul class="category-list">
+        <li><a href="#">3월 전국연합학력평가</a></li>
+        <li><a href="#">6월 전국연합학력평가</a></li>
+        <li><a href="#">9월 전국연합학력평가</a></li>
+        <li><a href="#">11월 전국연합학력평가</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="category-title">
+        <span class="icon-box red"></span> 고2 모의고사 분석
+      </div>
+      <ul class="category-list">
+        <li><a href="#">3월 전국연합학력평가</a></li>
+        <li><a href="#">6월 전국연합학력평가</a></li>
+        <li><a href="#">9월 전국연합학력평가</a></li>
+        <li><a href="#">11월 전국연합학력평가</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="category-title">
+        <span class="icon-box gray"></span> 고3 / 수능 기출
+      </div>
+      <ul class="category-list">
+        <li><a href="#">6월 대학수학능력시험 모의평가</a></li>
+        <li><a href="#">9월 대학수학능력시험 모의평가</a></li>
+        <li><a href="#">대학수학능력시험 심층 분석</a></li>
+      </ul>
+    </div>
+  </section>
 
 </body>
 </html>
