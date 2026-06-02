@@ -74,6 +74,45 @@
       .hero-container { flex-direction: column; }
       .category-section { grid-template-columns: 1fr; gap: 40px; }
     }
+    /* [모바일 전용 최신 CSS 업데이트] </style> 바로 위에 붙여넣으세요 */
+    @media (max-width: 767px) {
+      /* 헤더 전체 여백 줄임 */
+      header { padding: 10px 16px; }
+      
+      /* 로고 크기 살짝 줄임 */
+      .logo-area { font-size: 17px; gap: 4px; }
+      
+      /* 상단 메뉴 간격 줄임 */
+      .top-menu { gap: 10px; }
+      .top-menu a { font-size: 13px; }
+      
+      /* ★뭉개지던 로그인 버튼 크기 조정 */
+      .top-menu a.login-btn {
+        padding: 8px 14px; /* 옆 여백 줄임 */
+        white-space: nowrap; /* 글자가 두 줄로 뭉개지는 것 방지 */
+        font-size: 13px;
+      }
+
+      /* 로그인 했을 때 프로필 영역도 좁게 조정 */
+      .user-profile { gap: 6px; }
+      .user-avatar { width: 28px; height: 28px; }
+      /* 원장님 이름이 너무 길면 줄 바꿈 안 되게 처리 */
+      .user-name { font-size: 13px; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .logout-btn { font-size: 11px; margin-left: 2px; }
+
+      /* 메인 화면 텍스트 크기 조정 */
+      .hero-container { padding: 0 16px; margin: 40px auto 20px auto; flex-direction: column; gap: 32px; }
+      .hero-left h1 { font-size: 28px; margin-bottom: 16px; }
+      .hero-left p { font-size: 16px; }
+      .hero-right h2 { font-size: 20px; margin-bottom: 16px; }
+      .action-card { padding: 16px 20px; font-size: 15px; }
+
+      /* 공지 게시판 영역 조정 */
+      div[style*="max-width: 1040px"] { padding: 0 16px !important; }
+      h3[style*="font-size: 19px"] { font-size: 16px !important; }
+      #board-input { padding: 10px; font-size: 14px; }
+      #board-btn { padding: 0 16px; font-size: 14px; }
+    }
   </style>
 </head>
 <body>
