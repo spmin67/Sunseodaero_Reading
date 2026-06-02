@@ -71,4 +71,163 @@
     .category-list a:hover { color: #1865f2; text-decoration: underline; }
 
     @media (max-width: 900px) {
-      .
+      .hero-container { flex-direction: column; }
+      .category-section { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-area">
+      <span style="font-size: 24px;">📗</span> 수능 직순독해 훈련소
+    </div>
+    <div class="top-menu">
+      <a href="#">Explore ▾</a>
+      <div id="auth-area">
+        <a class="login-btn" onclick="loginWithGoogle(event)">Sign up</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="hero-container">
+    <div class="hero-left">
+      <h1>수능 영어, 직순독해로<br>빠르고 정확하게!</h1>
+      <p>영어 문장을 우리말 어순으로 억지로 바꾸지 마세요.<br>단어가 쓰인 순서 그대로 읽어 내려가는 훈련을 통해,<br>어떤 난이도의 지문도 흔들림 없이 파악할 수 있습니다.</p>
+    </div>
+
+    <div class="hero-right">
+      <h2>오늘의 훈련을 시작하세요!</h2>
+      <a href="https://script.google.com/macros/s/AKfycbzFUC2kStidFX0N0Bctef8P5_Fstx1qykQjFPclSGOjmqKbKAjP7zTluIPlSwXtW45jcA/exec" class="action-card" target="_blank">
+        <span>독해 예습방 입장</span>
+        <span class="arrow-icon"></span>
+      </a>
+      <a href="https://script.google.com/macros/s/AKfycbzAiQ-4MA9K9tN8DUyw778iZpWHeo_nyhdoLH49kqPL6sahbLrlzNg8YrHFVIiINFkzzg/exec" class="action-card" target="_blank">
+        <span>독해 숙제방 입장</span>
+        <span class="arrow-icon"></span>
+      </a>
+      <a href="#" class="action-card">
+        <span>Word Master 단어장</span>
+        <span class="arrow-icon"></span>
+      </a>
+    </div>
+  </main>
+
+  <div style="max-width: 1040px; margin: 0 auto 40px auto; padding: 0 32px;">
+    <div style="background-color: #f8f9fa; border-left: 5px solid #2c3e50; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+      <h3 style="margin-top: 0; color: #2c3e50; font-weight: bold; font-size: 19px;">📢 훈련소 실시간 공지</h3>
+      <ul id="board-list" style="padding-left: 20px; line-height: 1.8; font-size: 16px; margin-top: 12px; list-style-type: disc;">
+        <li style="color: #666;">공지사항을 불러오는 중입니다...</li>
+      </ul>
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <input type="text" id="board-input" placeholder="학생들에게 알릴 훈련 지침을 입력하세요..." style="flex: 1; padding: 12px; border: 1px solid #b3c2d1; border-radius: 4px; font-size: 15px;">
+        <button id="board-btn" style="background-color: #1865f2; color: white; border: none; padding: 0 24px; cursor: pointer; font-weight: 700; border-radius: 4px; font-size: 15px; transition: background-color 0.2s;">공지 등록</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="category-section">
+    <div>
+      <div class="category-title"><span class="icon-box"></span> 고1 모의고사 분석</div>
+      <ul class="category-list">
+        <li><a href="#">3월 전국연합학력평가</a></li>
+        <li><a href="#">6월 전국연합학력평가</a></li>
+        <li><a href="#">9월 전국연합학력평가</a></li>
+        <li><a href="#">11월 전국연합학력평가</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="category-title"><span class="icon-box red"></span> 고2 모의고사 분석</div>
+      <ul class="category-list">
+        <li><a href="#">3월 전국연합학력평가</a></li>
+        <li><a href="#">6월 전국연합학력평가</a></li>
+        <li><a href="#">9월 전국연합학력평가</a></li>
+        <li><a href="#">11월 전국연합학력평가</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="category-title"><span class="icon-box gray"></span> 고3 / 수능 기출</div>
+      <ul class="category-list">
+        <li><a href="#">6월 대학수학능력시험 모의평가</a></li>
+        <li><a href="#">9월 대학수학능력시험 모의평가</a></li>
+        <li><a href="#">대학수학능력시험 심층 분석</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <script>
+    // 🔍 선생님의 '진짜 증표(API 키 등)' 6줄을 아래 중괄호 안에 다시 덮어써 주세요!
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // 1. 파이어베이스 및 인증/데이터베이스 엔진 기동
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // 2. 구글 로그인 및 로그아웃 기능
+    function loginWithGoogle(e) {
+      if(e) e.preventDefault();
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .catch((error) => alert("로그인 실패: " + error.message));
+    }
+    function logout() {
+      auth.signOut().then(() => location.reload());
+    }
+
+    // 3. 회원 상태 실시간 감시 모니터
+    auth.onAuthStateChanged((user) => {
+      const authArea = document.getElementById('auth-area');
+      if (user) {
+        authArea.innerHTML = `
+          <div class="user-profile">
+            <img src="${user.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="profile">
+            <span class="user-name">${user.displayName}님</span>
+            <span class="logout-btn" onclick="logout()">로그아웃</span>
+          </div>
+        `;
+      } else {
+        authArea.innerHTML = `<a class="login-btn" onclick="loginWithGoogle(event)">Sign up</a>`;
+      }
+    });
+
+    // 4. [게시판] 공지 등록 버튼 누를 때 데이터베이스로 전송
+    document.getElementById("board-btn").addEventListener("click", () => {
+      const inputVal = document.getElementById("board-input").value;
+      if (inputVal.trim() === "") return; // 빈칸이면 작동 안 함
+
+      db.collection("notices").add({
+        text: inputVal,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp() // 서버 현재 시간 기록
+      }).then(() => {
+        document.getElementById("board-input").value = ""; // 성공하면 입력창 비우기
+      }).catch((error) => {
+        alert("업로드 실패: " + error.message);
+      });
+    });
+
+    // 5. [게시판] 데이터베이스에서 실시간으로 글 가져와서 뿌리기
+    db.collection("notices").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+      const list = document.getElementById("board-list");
+      list.innerHTML = ""; // 기존 안내 글자 지우기
+      
+      snapshot.forEach((doc) => {
+        const li = document.createElement("li");
+        li.textContent = doc.data().text;
+        li.style.marginBottom = "8px"; // 글 간격 조금 띄우기
+        list.appendChild(li);
+      });
+    });
+  </script>
+
+</body>
+</html>
