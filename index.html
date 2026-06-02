@@ -215,15 +215,29 @@
       });
     });
 
-    // 5. [게시판] 데이터베이스에서 실시간으로 글 가져와서 뿌리기
+    // 게시판 실시간 불러오기 기능 (시간 표시 추가)
     db.collection("notices").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
       const list = document.getElementById("board-list");
-      list.innerHTML = ""; // 기존 안내 글자 지우기
+      list.innerHTML = ""; 
       
       snapshot.forEach((doc) => {
+        const data = doc.data();
         const li = document.createElement("li");
-        li.textContent = doc.data().text;
-        li.style.marginBottom = "8px"; // 글 간격 조금 띄우기
+        
+        // 시간 변환 작업 (방금 쓴 글은 서버 도달 전이므로 '방금 전'으로 처리)
+        let timeString = "방금 전";
+        if (data.createdAt) {
+          const date = data.createdAt.toDate();
+          const month = date.getMonth() + 1;
+          const day = date.getDate();
+          const hours = String(date.getHours()).padStart(2, '0');
+          const minutes = String(date.getMinutes()).padStart(2, '0');
+          timeString = `${month}/${day} ${hours}:${minutes}`;
+        }
+
+        // 화면에 [날짜 시간] 공지내용 형태로 출력
+        li.innerHTML = `<span style="color: #14bf96; font-weight: bold; margin-right: 8px;">[${timeString}]</span> ${data.text}`;
+        li.style.marginBottom = "10px";
         list.appendChild(li);
       });
     });
