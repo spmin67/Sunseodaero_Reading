@@ -118,7 +118,7 @@
       <h3 style="margin-top: 0; color: #2c3e50; font-weight: bold; font-size: 19px;">📢 훈련소 실시간 공지</h3>
 <ul id="board-list" style="padding-left: 20px; line-height: 1.8; font-size: 16px; margin-top: 12px; list-style-type: disc; max-height: 150px; overflow-y: auto; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">        <li style="color: #666;">공지사항을 불러오는 중입니다...</li>
       </ul>
-      <div style="display: flex; gap: 10px; margin-top: 20px;">
+     <div id="admin-area" style="display: none; gap: 10px; margin-top: 20px;">
         <input type="text" id="board-input" placeholder="학생들에게 알릴 훈련 지침을 입력하세요..." style="flex: 1; padding: 12px; border: 1px solid #b3c2d1; border-radius: 4px; font-size: 15px;">
         <button id="board-btn" style="background-color: #1865f2; color: white; border: none; padding: 0 24px; cursor: pointer; font-weight: 700; border-radius: 4px; font-size: 15px; transition: background-color 0.2s;">공지 등록</button>
       </div>
@@ -183,10 +183,13 @@
       auth.signOut().then(() => location.reload());
     }
 
-    // 3. 회원 상태 실시간 감시 모니터
+    // 로그인 상태 모니터 및 권한 제어
     auth.onAuthStateChanged((user) => {
       const authArea = document.getElementById('auth-area');
+      const adminArea = document.getElementById('admin-area');
+      
       if (user) {
+        // 로그인 성공 시 프로필 표시
         authArea.innerHTML = `
           <div class="user-profile">
             <img src="${user.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="profile">
@@ -194,11 +197,19 @@
             <span class="logout-btn" onclick="logout()">로그아웃</span>
           </div>
         `;
+        
+        // ★오직 원장님 이메일일 때만 공지 입력창을 보여줌
+        if (user.email === "spmin67@gmail.com") {
+          adminArea.style.display = "flex";
+        } else {
+          adminArea.style.display = "none";
+        }
       } else {
+        // 로그아웃 상태면 로그인 버튼 표시 및 입력창 숨김
         authArea.innerHTML = `<a class="login-btn" onclick="loginWithGoogle(event)">Sign up</a>`;
+        adminArea.style.display = "none";
       }
     });
-
     // 4. [게시판] 공지 등록 버튼 누를 때 데이터베이스로 전송
     document.getElementById("board-btn").addEventListener("click", () => {
       const inputVal = document.getElementById("board-input").value;
