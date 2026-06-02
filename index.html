@@ -12,9 +12,10 @@
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   
   <style>
+    /* 기본 PC용 스타일 */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+      font-family: 'Pretendard', sans-serif;
       background-color: #ffffff;
       color: #21242c;
       -webkit-font-smoothing: antialiased;
@@ -28,30 +29,27 @@
     .top-menu a { text-decoration: none; color: #1865f2; font-weight: 700; font-size: 15px; }
     .top-menu a.login-btn {
       background-color: #1865f2; color: white; padding: 10px 20px; border-radius: 4px;
-      transition: background-color 0.2s; cursor: pointer;
+      cursor: pointer;
     }
-    .top-menu a.login-btn:hover { background-color: #104eb5; }
     .user-profile { display: flex; align-items: center; gap: 10px; }
-    .user-avatar { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #dedede; }
+    .user-avatar { width: 32px; height: 32px; border-radius: 50%; }
     .user-name { font-size: 15px; font-weight: 700; color: #3b3e46; }
-    .logout-btn { font-size: 13px; color: #888888; text-decoration: underline; cursor: pointer; font-weight: 400; margin-left: 6px; }
+    .logout-btn { font-size: 13px; color: #888; text-decoration: underline; cursor: pointer; margin-left: 6px; }
 
     .hero-container {
-      max-width: 1040px; margin: 80px auto 40px auto; display: flex; align-items: flex-start;
-      justify-content: space-between; gap: 64px; padding: 0 32px;
+      max-width: 1040px; margin: 80px auto 40px auto; display: flex; gap: 64px; padding: 0 32px;
     }
     .hero-left { flex: 1.2; }
-    .hero-left h1 { font-size: 44px; letter-spacing: -0.5px; line-height: 1.15; margin-bottom: 24px; color: #21242c; font-weight: 700; }
-    .hero-left p { font-size: 19px; line-height: 1.6; color: #3b3e46; font-weight: 400; }
+    .hero-left h1 { font-size: 44px; margin-bottom: 24px; font-weight: 700; }
+    .hero-left p { font-size: 19px; line-height: 1.6; color: #3b3e46; }
     .hero-right { flex: 1; width: 100%; }
-    .hero-right h2 { font-size: 28px; margin-bottom: 24px; color: #21242c; font-weight: 700; letter-spacing: -0.3px; }
+    .hero-right h2 { font-size: 28px; margin-bottom: 24px; font-weight: 700; }
     .action-card {
       display: flex; justify-content: space-between; align-items: center;
       padding: 22px 24px; margin-bottom: 16px; border: 1px solid #b3c2d1;
       border-radius: 4px; background-color: #f7f9fa; text-decoration: none;
-      color: #1865f2; font-size: 17px; font-weight: 600; transition: all 0.2s ease;
+      color: #1865f2; font-size: 17px; font-weight: 600;
     }
-    .action-card:hover { background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-color: #1865f2; }
     .arrow-icon {
       width: 8px; height: 14px; border-top: 2px solid #1865f2; border-right: 2px solid #1865f2;
       transform: rotate(45deg); display: inline-block;
@@ -61,57 +59,42 @@
       max-width: 1040px; margin: 40px auto 80px auto; padding: 64px 32px;
       border-top: 1px solid #dedede; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
     }
-    .category-title { font-size: 19px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; color: #21242c; }
+    .category-title { font-size: 19px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
     .icon-box { width: 24px; height: 24px; background-color: #ffb100; border-radius: 4px; display: inline-block; }
     .icon-box.red { background-color: #e24925; }
     .icon-box.gray { background-color: #3b3e46; }
     .category-list { list-style: none; }
     .category-list li { margin-bottom: 18px; }
-    .category-list a { text-decoration: none; color: #3b3e46; font-size: 16px; font-weight: 400; transition: color 0.1s; }
-    .category-list a:hover { color: #1865f2; text-decoration: underline; }
+    .category-list a { text-decoration: none; color: #3b3e46; font-size: 16px; }
 
-    @media (max-width: 900px) {
-      .hero-container { flex-direction: column; }
-      .category-section { grid-template-columns: 1fr; gap: 40px; }
-    }
-    /* [모바일 전용 최신 CSS 업데이트] </style> 바로 위에 붙여넣으세요 */
+    /* [모바일 전용 화면 깨짐 방지 CSS] */
     @media (max-width: 767px) {
-      /* 헤더 전체 여백 줄임 */
       header { padding: 10px 16px; }
-      
-      /* 로고 크기 살짝 줄임 */
       .logo-area { font-size: 17px; gap: 4px; }
-      
-      /* 상단 메뉴 간격 줄임 */
       .top-menu { gap: 10px; }
       .top-menu a { font-size: 13px; }
-      
-      /* ★뭉개지던 로그인 버튼 크기 조정 */
       .top-menu a.login-btn {
-        padding: 8px 14px; /* 옆 여백 줄임 */
-        white-space: nowrap; /* 글자가 두 줄로 뭉개지는 것 방지 */
+        padding: 8px 14px; 
+        white-space: nowrap; 
         font-size: 13px;
       }
-
-      /* 로그인 했을 때 프로필 영역도 좁게 조정 */
       .user-profile { gap: 6px; }
       .user-avatar { width: 28px; height: 28px; }
-      /* 원장님 이름이 너무 길면 줄 바꿈 안 되게 처리 */
       .user-name { font-size: 13px; max-width: 60px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
       .logout-btn { font-size: 11px; margin-left: 2px; }
 
-      /* 메인 화면 텍스트 크기 조정 */
       .hero-container { padding: 0 16px; margin: 40px auto 20px auto; flex-direction: column; gap: 32px; }
       .hero-left h1 { font-size: 28px; margin-bottom: 16px; }
       .hero-left p { font-size: 16px; }
       .hero-right h2 { font-size: 20px; margin-bottom: 16px; }
       .action-card { padding: 16px 20px; font-size: 15px; }
 
-      /* 공지 게시판 영역 조정 */
       div[style*="max-width: 1040px"] { padding: 0 16px !important; }
       h3[style*="font-size: 19px"] { font-size: 16px !important; }
       #board-input { padding: 10px; font-size: 14px; }
       #board-btn { padding: 0 16px; font-size: 14px; }
+      
+      .category-section { grid-template-columns: 1fr; gap: 32px; padding: 32px 16px; }
     }
   </style>
 </head>
@@ -134,32 +117,31 @@
       <h1>수능 영어, 직순독해로<br>빠르고 정확하게!</h1>
       <p>영어 문장을 우리말 어순으로 억지로 바꾸지 마세요.<br>단어가 쓰인 순서 그대로 읽어 내려가는 훈련을 통해,<br>어떤 난이도의 지문도 흔들림 없이 파악할 수 있습니다.</p>
     </div>
-
     <div class="hero-right">
       <h2>오늘의 훈련을 시작하세요!</h2>
       <a href="https://script.google.com/macros/s/AKfycbzFUC2kStidFX0N0Bctef8P5_Fstx1qykQjFPclSGOjmqKbKAjP7zTluIPlSwXtW45jcA/exec" class="action-card" target="_blank">
-        <span>독해 예습방 입장</span>
-        <span class="arrow-icon"></span>
+        <span>독해 예습방 입장</span><span class="arrow-icon"></span>
       </a>
       <a href="https://script.google.com/macros/s/AKfycbzAiQ-4MA9K9tN8DUyw778iZpWHeo_nyhdoLH49kqPL6sahbLrlzNg8YrHFVIiINFkzzg/exec" class="action-card" target="_blank">
-        <span>독해 숙제방 입장</span>
-        <span class="arrow-icon"></span>
+        <span>독해 숙제방 입장</span><span class="arrow-icon"></span>
       </a>
       <a href="#" class="action-card">
-        <span>Word Master 단어장</span>
-        <span class="arrow-icon"></span>
+        <span>Word Master 단어장</span><span class="arrow-icon"></span>
       </a>
     </div>
   </main>
 
   <div style="max-width: 1040px; margin: 0 auto 40px auto; padding: 0 32px;">
-    <div style="background-color: #f8f9fa; border-left: 5px solid #2c3e50; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="background-color: #f8f9fa; border-left: 5px solid #2c3e50; padding: 20px; border-radius: 5px;">
       <h3 style="margin-top: 0; color: #2c3e50; font-weight: bold; font-size: 19px;">📢 훈련소 실시간 공지</h3>
-<ul id="board-list" style="padding-left: 20px; line-height: 1.8; font-size: 16px; margin-top: 12px; list-style-type: disc; max-height: 150px; overflow-y: auto; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">        <li style="color: #666;">공지사항을 불러오는 중입니다...</li>
+      
+      <ul id="board-list" style="padding-left: 20px; line-height: 1.8; font-size: 16px; margin-top: 12px; list-style-type: disc; max-height: 150px; overflow-y: auto; border-bottom: 1px dashed #ccc; padding-bottom: 10px;">
+        <li style="color: #666;">공지사항을 불러오는 중입니다...</li>
       </ul>
-     <div id="admin-area" style="display: none; gap: 10px; margin-top: 20px;">
+      
+      <div id="admin-area" style="display: none; gap: 10px; margin-top: 20px;">
         <input type="text" id="board-input" placeholder="학생들에게 알릴 훈련 지침을 입력하세요..." style="flex: 1; padding: 12px; border: 1px solid #b3c2d1; border-radius: 4px; font-size: 15px;">
-        <button id="board-btn" style="background-color: #1865f2; color: white; border: none; padding: 0 24px; cursor: pointer; font-weight: 700; border-radius: 4px; font-size: 15px; transition: background-color 0.2s;">공지 등록</button>
+        <button id="board-btn" style="background-color: #1865f2; color: white; border: none; padding: 0 24px; cursor: pointer; font-weight: 700; border-radius: 4px; font-size: 15px;">공지 등록</button>
       </div>
     </div>
   </div>
@@ -168,35 +150,27 @@
     <div>
       <div class="category-title"><span class="icon-box"></span> 고1 모의고사 분석</div>
       <ul class="category-list">
-        <li><a href="#">3월 전국연합학력평가</a></li>
-        <li><a href="#">6월 전국연합학력평가</a></li>
-        <li><a href="#">9월 전국연합학력평가</a></li>
-        <li><a href="#">11월 전국연합학력평가</a></li>
+        <li><a href="#">3월 / 6월 / 9월 / 11월 전국연합학력평가</a></li>
       </ul>
     </div>
     <div>
       <div class="category-title"><span class="icon-box red"></span> 고2 모의고사 분석</div>
       <ul class="category-list">
-        <li><a href="#">3월 전국연합학력평가</a></li>
-        <li><a href="#">6월 전국연합학력평가</a></li>
-        <li><a href="#">9월 전국연합학력평가</a></li>
-        <li><a href="#">11월 전국연합학력평가</a></li>
+        <li><a href="#">3월 / 6월 / 9월 / 11월 전국연합학력평가</a></li>
       </ul>
     </div>
     <div>
       <div class="category-title"><span class="icon-box gray"></span> 고3 / 수능 기출</div>
       <ul class="category-list">
-        <li><a href="#">6월 대학수학능력시험 모의평가</a></li>
-        <li><a href="#">9월 대학수학능력시험 모의평가</a></li>
-        <li><a href="#">대학수학능력시험 심층 분석</a></li>
+        <li><a href="#">6월 / 9월 모의평가 및 수능 심층 분석</a></li>
       </ul>
     </div>
   </section>
 
   <script>
-    // 🔍 선생님의 '진짜 증표(API 키 등)' 6줄을 아래 중괄호 안에 다시 덮어써 주세요!
+    // ★주의: 이 부분을 아까 발급받으신 '새 프로젝트의 진짜 열쇠'로 꼭 덮어써주세요!
     const firebaseConfig = {
-  apiKey: "AIzaSyCcBC8W_7_BgbVvbQnbJV1iID5Lf7LOBe0",
+      apiKey: "AIzaSyCcBC8W_7_BgbVvbQnbJV1iID5Lf7LOBe0",
   authDomain: "sunseodaero-reading.firebaseapp.com",
   projectId: "sunseodaero-reading",
   storageBucket: "sunseodaero-reading.firebasestorage.app",
@@ -204,31 +178,28 @@
   appId: "1:14566476128:web:afbbb1e842b0d2d5b43605"
     };
 
-    // 1. 파이어베이스 및 인증/데이터베이스 엔진 기동
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // 2. 구글 로그인 및 로그아웃 기능
+    // 구글 로그인 & 로그아웃 기능
     function loginWithGoogle(e) {
       if(e) e.preventDefault();
       const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider)
-        .catch((error) => alert("로그인 실패: " + error.message));
+      auth.signInWithPopup(provider).catch((error) => alert("로그인 실패: " + error.message));
     }
     function logout() {
       auth.signOut().then(() => location.reload());
     }
 
-    // 로그인 상태 모니터 및 권한 제어
+    // 로그인 상태 모니터 및 원장님 권한 제어
     auth.onAuthStateChanged((user) => {
       const authArea = document.getElementById('auth-area');
       const adminArea = document.getElementById('admin-area');
       
       if (user) {
-        // 로그인 성공 시 프로필 표시
         authArea.innerHTML = `
           <div class="user-profile">
             <img src="${user.photoURL || 'https://via.placeholder.com/32'}" class="user-avatar" alt="profile">
@@ -237,34 +208,34 @@
           </div>
         `;
         
-        // ★오직 원장님 이메일일 때만 공지 입력창을 보여줌
+        // 원장님 이메일 확인 후 공지창 오픈
         if (user.email === "spmin67@gmail.com") {
           adminArea.style.display = "flex";
         } else {
           adminArea.style.display = "none";
         }
       } else {
-        // 로그아웃 상태면 로그인 버튼 표시 및 입력창 숨김
         authArea.innerHTML = `<a class="login-btn" onclick="loginWithGoogle(event)">Sign up</a>`;
         adminArea.style.display = "none";
       }
     });
-    // 4. [게시판] 공지 등록 버튼 누를 때 데이터베이스로 전송
+
+    // 게시판 글 쓰기 기능
     document.getElementById("board-btn").addEventListener("click", () => {
       const inputVal = document.getElementById("board-input").value;
-      if (inputVal.trim() === "") return; // 빈칸이면 작동 안 함
+      if (inputVal.trim() === "") return; 
 
       db.collection("notices").add({
         text: inputVal,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp() // 서버 현재 시간 기록
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
-        document.getElementById("board-input").value = ""; // 성공하면 입력창 비우기
+        document.getElementById("board-input").value = "";
       }).catch((error) => {
-        alert("업로드 실패: " + error.message);
+        alert("업로드 실패 (원장님만 작성 가능합니다): " + error.message);
       });
     });
 
-    // 게시판 실시간 불러오기 기능 (시간 표시 추가)
+    // 게시판 실시간 불러오기 (시간 도장 포함)
     db.collection("notices").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
       const list = document.getElementById("board-list");
       list.innerHTML = ""; 
@@ -273,7 +244,6 @@
         const data = doc.data();
         const li = document.createElement("li");
         
-        // 시간 변환 작업 (방금 쓴 글은 서버 도달 전이므로 '방금 전'으로 처리)
         let timeString = "방금 전";
         if (data.createdAt) {
           const date = data.createdAt.toDate();
@@ -284,13 +254,11 @@
           timeString = `${month}/${day} ${hours}:${minutes}`;
         }
 
-        // 화면에 [날짜 시간] 공지내용 형태로 출력
         li.innerHTML = `<span style="color: #14bf96; font-weight: bold; margin-right: 8px;">[${timeString}]</span> ${data.text}`;
         li.style.marginBottom = "10px";
         list.appendChild(li);
       });
     });
   </script>
-
 </body>
 </html>
